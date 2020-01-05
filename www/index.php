@@ -2,32 +2,32 @@
 
 require(__DIR__.'/../bootstrap.php');
 
-use ElBiniou\LivingSource\Reader;
+
+use ElBiniou\LivingSource\Source;
+use ElBiniou\LivingSource\SourceFileStorage;
 
 
-$reader = new Reader(__DIR__ . '/data/diff.versionned.json');
-$versions = $reader->getVersions();
+$source = new Source();
+$storage = new SourceFileStorage($source, __DIR__ . '/data/diff.versionned.json');
+$storage->loadVersions();
 
-$metadata = $reader->getMetadata();
+$versions = $source->getVersions();
+
+
+$metadata = $source->getMetadata();
+
 ?>
 <!doctype html>
 <html>
 <head>
 
-    <!--
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.3.3/ace.js"></script>
-    //-->
-
     <script src="./vendor/ace-builds/src-min/ace.js"></script>
 
-
-    <!-- Include Ace-diff JS and CSS (using unpkg.com CDN in this case) -->
     <script src="./vendor/acediff.js"></script>
     <link href="./vendor/acediff-dark.css" rel="stylesheet">
 
     <link rel="stylesheet" href="./resource/style.css"/>
     <script src="./source/LivingSource.js"></script>
-
 
 </head>
 
